@@ -41,7 +41,24 @@ function App() {
     resetValues()
   }
 
-  console.log(todos)
+  const handleDelete = (id) => {
+    const action = {
+      type: 'delete',
+      payload: id
+    }
+
+    dispatch(action)
+  }
+
+  const handleComplite = (id) => {
+    const action = {
+      type: 'complite',
+      payload: id
+    }
+
+    dispatch(action)
+  }
+
   return (
     <div className="App">
       <h1>TODO APP ({ todos.length })</h1>
@@ -56,8 +73,14 @@ function App() {
                   key={todo.id}
                   className='list-group-item'
                   >
-                    <p>{i + 1}. {todo.desc}</p>
-                    <button className='btn btn-danger'> Eliminar</button>
+                    <p
+                      className={`${todo.done && 'complite'}`}
+                      onClick={() => handleComplite(todo.id)}
+                    >{i + 1}. {todo.desc}</p>
+                    <button 
+                      className='btn btn-danger'
+                      onClick={() => handleDelete(todo.id)}
+                    > Eliminar</button>
                 </li>
               ))
             }
