@@ -1,3 +1,18 @@
 .App {
   margin: 1rem;
 }
+
+p {
+  margin: 0px;
+  cursor: pointer;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.complite {
+  text-decoration: line-through;
+}
