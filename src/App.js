@@ -11,7 +11,24 @@ const initialState = [{
 
 function App() {
 
-  const [ todos ] = useReducer(todoReducer, initialState);
+  const [ todos, dispatch ] = useReducer(todoReducer, initialState);
+
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+
+    const newTodo = {
+      id: new Date().getTime(),
+      desc: 'tarea 1',
+      done: false
+    }
+
+    const action = {
+      type: 'add',
+      payload: newTodo
+    }
+
+    dispatch(action) // fire method
+  }
 
   console.log(todos)
   return (
@@ -38,7 +55,7 @@ function App() {
         <div className='col-5'>
           <h2>Agregar todo</h2>
           <hr/>
-          <form>
+          <form onSubmit={handlerSubmit}>
             <input 
               type='text'
               autoComplete='off'
@@ -47,6 +64,7 @@ function App() {
             />
 
             <button
+              type='submit'
               className='btn btn-outline-primary mt-1 btn-block'
             >Agregar</button>
           </form>
