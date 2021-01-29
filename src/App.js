@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { todoReducer } from './todoReducer';
+import { useForm } from './hooks/useForm';
 
 import './App.css';
 
@@ -13,12 +14,20 @@ function App() {
 
   const [ todos, dispatch ] = useReducer(todoReducer, initialState);
 
+  const [{description}, handleInputChange, resetValues] = useForm({
+    description: ''
+  })
+
   const handlerSubmit = (e) => {
     e.preventDefault();
 
+    if (description.trim().length <= 1) {
+      return;
+    }
+
     const newTodo = {
       id: new Date().getTime(),
-      desc: 'tarea 1',
+      desc: description,
       done: false
     }
 
@@ -28,6 +37,7 @@ function App() {
     }
 
     dispatch(action) // fire method
+    resetValues()
   }
 
   console.log(todos)
@@ -60,7 +70,9 @@ function App() {
               type='text'
               autoComplete='off'
               name='description'
+              value={description}
               className='form-control'
+              onChange={handleInputChange}
             />
 
             <button
