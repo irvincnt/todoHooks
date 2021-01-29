@@ -1,22 +1,23 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import { useForm } from './hooks/useForm';
 
 import './App.css';
 
-const initialState = [{
-  id: new Date().getTime(),
-  desc: 'tarea 1',
-  done: false
-}]
+const init = () => { // when the component is reloaded it runs and sets initial state the useReducer()
+  return JSON.parse(localStorage.getItem('todos')) || []; // Parse the todos to Object and validate if they exist
+}
 
 function App() {
-
-  const [ todos, dispatch ] = useReducer(todoReducer, initialState);
+  const [ todos, dispatch ] = useReducer(todoReducer, [], init);
 
   const [{description}, handleInputChange, resetValues] = useForm({
     description: ''
   })
+
+  useEffect( () => {
+    localStorage.setItem('todos', JSON.stringify(todos)) // Convert the values ​​to send (string) them to the localstorage
+  }, [todos])
 
   const handlerSubmit = (e) => {
     e.preventDefault();
