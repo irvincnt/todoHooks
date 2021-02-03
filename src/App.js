@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import { useForm } from './hooks/useForm';
+import { TodoList } from './components/TodoList';
 
 import './App.css';
 
@@ -66,25 +67,12 @@ function App() {
 
       <div className='row'>
         <div className='col-7'>
-          <ul className='lisy-group list-group-flush'>
-            {
-              todos.map((todo, i) => (
-                <li
-                  key={todo.id}
-                  className='list-group-item'
-                  >
-                    <p
-                      className={`${todo.done && 'complite'}`}
-                      onClick={() => handleComplite(todo.id)}
-                    >{i + 1}. {todo.desc}</p>
-                    <button 
-                      className='btn btn-danger'
-                      onClick={() => handleDelete(todo.id)}
-                    > Eliminar</button>
-                </li>
-              ))
-            }
-          </ul>
+          {/* TodoList, todos, handleComplite, handleDelete */}
+          <TodoList 
+            todos={todos}
+            handleComplite={handleComplite}
+            handleDelete={handleDelete}
+          />
         </div>
         <div className='col-5'>
           <h2>Agregar todo</h2>
